@@ -8,7 +8,8 @@ module.exports = {
         const message = await interaction.deferReply({
             fetchReply:   true
         });
-        const newMessage = `yolooooooooooo`
+        console.log(client)
+        const newMessage = `hello ${interaction.user.username}`
         await interaction.editReply({
             content: newMessage
         })

@@ -4,6 +4,7 @@ const { Client, Collection, GatewayIntentBits } = require("discord.js");
 
 const fs = require("node:fs");
 
+//init client
 const client = new Client({ intents: GatewayIntentBits.Guilds });
 
 client.commands = new Collection();
