@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, escapeMarkdown } = require("discord.js");
 const { execute } = require("../../events/client/ready");
 const axios = require("axios");
 const stringBuilder = (materialArray) => {
@@ -29,16 +29,27 @@ module.exports = {
           "https://scraping-8v2x.onrender.com/api/craft",
           data
         );
-        resolve(res.data);
+        if(res){
+          console.log('ok')
+          resolve(res.data);
+        }
+        else{
+          console.log('err')
+          resolve(null)
+        }
       });
     const itemName = interaction.options.getString("craft");
     const formula = await getFormula(itemName);
-    console.log(formula.map);
-    const newString = stringBuilder(formula.map);
-    const message = `\`\`\` ${newString}\n\`\`\``;
-    console.log(message);
-    await interaction.reply({
-      content: message,
-    });
+    if(formula){
+      const newString = stringBuilder(formula.map);
+      const message = `\`\`\` ${newString}\n\`\`\``;
+      console.log(message);
+      await interaction.reply({
+        content: message,
+      });
+    }else
+      await interaction.reply({
+        content : 'item does not exsist'
+      })
   },
 };
