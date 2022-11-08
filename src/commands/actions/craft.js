@@ -34,33 +34,26 @@ const stringBuilder = (materialArray) => {
 };
 
 const craft = async (interaction, itemName) => {
+  await interaction.deferReply();
   const formula = await getFormula(itemName);
   if (formula) {
     const newString = stringBuilder(formula.map);
     const message = `\`\`\` ${newString}\n\`\`\``;
     console.log(message);
     await interaction
-      .reply({
+      .editReply({
         content: message,
       })
       .catch((err) => {});
   } else
     await interaction
-      .reply({
+      .editReply({
         content: "item does not exsist",
       })
       .catch((err) => {});
 };
 
-//after send the first reply
-// const getRestItems = async (formulaList, index) =>{
-//   var tempMessage = "";
-//   for(const item in formulaList){
-//     tempMessage += "\t" + item + "\n";
-//     const formula = stringBuilder(formulaList.map[item]) + `\n`;
-//     tempMessage += formula;
-//   }
-// }
+
 
 const canCrafting = async (interaction, itemName) => {
   await interaction.deferReply();
